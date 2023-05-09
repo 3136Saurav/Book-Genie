@@ -11,6 +11,8 @@ import java.util.Optional;
 @Controller
 public class BookController {
 
+    private final String COVER_IMAGE_ROOT = "http://covers.openlibrary.org/b/id/";
+
     @Autowired
     BookRepository bookRepository;
 
@@ -19,6 +21,11 @@ public class BookController {
         Optional<Book> optionalBook = bookRepository.findById(bookId);
         if (optionalBook.isPresent()) {
             Book book = optionalBook.get();
+            String coverImageUrl = "/images/book-not-found.png";
+            if (book.getCoverIds() != null && book.getCoverIds().size() > 0) {
+                coverImageUrl = COVER_IMAGE_ROOT + book.getCoverIds().get(0) + "-L.jpg";
+            }
+            model.addAttribute("coverImage", coverImageUrl);
             model.addAttribute("book", book);
             return "book";
         }
