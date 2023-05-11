@@ -23,10 +23,45 @@
                                 <p th:text="${book.authorNames}" class="card-text display-5">Book Authors</p>
                                 <p th:text="${book.description}" class="card-text">Book Description</p>
                                 <p class="card-text">Published Date: <small class="text-muted" th:text="${book.publishedDate}">2025-05-05</small></p>
+
+                                <form th:if="${loginId}" th:attr="action=@{/addUserBook}" method="POST">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                    <input type="hidden" name="bookId" th:value="${book.id}" />
+                                    <div class="mb-3">
+                                        <label for="startDate" class="form-label">Start Date</label>
+                                        <input type="date" class="form-control" name="startDate" th:value="${userBooks.startDate}" id="startDate">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="completedDate" class="form-label">Completed Date</label>
+                                        <input type="date" class="form-control" name="completedDate" th:value="${userBooks.completedDate}" id="completedDate">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="readingStatus" class="form-label">Status</label>
+                                        <select id="readingStatus" class="form-select" name="readingStatus"  th:field="${userBooks.readingStatus}" aria-label="Reading Status">
+                                            <option selected value="0">Status</option>
+                                            <option value="reading">Currently Reading</option>
+                                            <option value="finished">Finished</option>
+                                            <option value="dnf">Did not finish</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="rating" class="form-label">Rating</label>
+                                        <select id="rating" class="form-select" name="rating" th:field="${userBooks.rating}" aria-label="Rating">
+                                            <option selected value="0">Rating</option>
+                                            <option value="1">&#11088;</option>
+                                            <option value="2">&#11088;&#11088;</option>
+                                            <option value="3">&#11088;&#11088;&#11088;</option>
+                                            <option value="4">&#11088;&#11088;&#11088;&#11088;</option>
+                                            <option value="5">&#11088;&#11088;&#11088;&#11088;&#11088;</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </body>

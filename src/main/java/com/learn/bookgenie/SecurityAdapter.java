@@ -12,6 +12,7 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        System.out.println("HTTP: " + http);
         http
                 .authorizeHttpRequests(a -> a
                         // a.antMatchers("/", "/error").permitAll()
